@@ -1,19 +1,24 @@
 #include "Model.h"
-
-Model::Model(function<string()> func) {
+string forOfor(HTTPResponse response){
+    HTTPRequest request("no page",404,"No page found");
+    return request.toString();
+}
+Model::Model(function<string(HTTPResponse)> func) {
 	m_base = func;
 }
-function<string()> Model::searchPath(const string& str)
+
+function<string(HTTPResponse)> Model::searchPath(const string& str)
 {
-	if (this == NULL)
-		return NULL;
-	if (str.empty())
-		return m_base;
+	if (str.empty()) {
+	    return m_base;
+    }
 
 
 	int current = str.find("/");
 	if (current == -1) {
-		return m_paths[str]->m_base;
+	    if(m_paths[str] != NULL)
+	        return m_paths[str]->m_base;
+	    return forOfor;
 	}
 	else {
 		string key = str.substr(0, current);
@@ -21,7 +26,7 @@ function<string()> Model::searchPath(const string& str)
 	}
 }
 
-void Model::add(const string& str, function<string()> func)
+void Model::add(const string& str, function<string(HTTPResponse)> func)
 {
 	//if the key does not have a / assume that thats the final poition
 	int current = str.find("/");
@@ -40,7 +45,7 @@ void Model::add(const string& str, function<string()> func)
 			mod = m_paths["%"] ;
 		}
 		else {
-			mod = new Model(NULL);
+			mod = new Model(forOfor);
 			m_paths[key] = mod;
 		}
 		mod->add(str.substr(current+1,str.length()), func);

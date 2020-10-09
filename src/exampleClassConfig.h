@@ -1,4 +1,3 @@
 #pragma once
-string write() {
-	return "hello";
-}
+#include <string>
+#include <stdlib.h>

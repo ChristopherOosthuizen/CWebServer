@@ -1,16 +1,17 @@
 #pragma once
 #include <string>
+#include <HTTP/HTTPResponse.h>
 using namespace std;
 
-string hello() {
+string hello(HTTPResponse rest) {
 	return "Hello";
 }
-string world() {
+string world(HTTPResponse rest){
 	return "world";
 }
-string exploit() {
+string exploit(HTTPResponse rest) {
 	return "!";
 }
-extern string hello();
-extern string world();
-extern string exploit();
+extern string hello(HTTPResponse rest);
+extern string world(HTTPResponse rest);
+extern string exploit(HTTPResponse resj);

@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 project(WebServer)
 
 set(CMAKE_CXX_STANDARD 14)
 include_directories(src)
-
 add_subdirectory(src)
 add_subdirectory(tst)
 add_subdirectory(lib/googletest)
+SET(CMAKE_CXX_FLAGS -pthread)
+set(CMAKE_EXPORT_COMPILE_COMMANDS "ON")
