@@ -25,6 +25,7 @@ TEST(Model, paths) {
 	model.add("world/world", hello);
 	model.add("world/word/there", world);
 	model.add("world/word/theres", exploit);
+    HTTPResponse repo("hello helloss");
 	ASSERT_EQ(model.searchPath("world/world")(repo), "Hello");
 	ASSERT_EQ(model.searchPath("world/word/there")(repo), "world");
 	ASSERT_EQ(model.searchPath("world/word/theres")(repo), "!");
