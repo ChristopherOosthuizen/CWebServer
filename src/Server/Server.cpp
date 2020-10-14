@@ -13,7 +13,7 @@ void handleConnection(int sock,Model* model) {
     HTTPResponse response(inputs);
     string address = response.getAddress();
       //checks to see if the function is valid becuase you cant assign a invalid function to a varible
-      ServSock::write(sock, model->searchPath(address.substr(1,address.length()))(response));
+      ServSock::write(sock, model->searchPath(address.substr(1,address.length()),"get")(response));
 }
 void Server::run(string address) {
     ServSock sock(8080);

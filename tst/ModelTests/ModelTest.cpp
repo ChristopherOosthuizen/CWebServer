@@ -2,32 +2,32 @@
 #include <Model/Model.h>
 #include "ExampleFunctions.h"
 TEST(Model, addOneWord) {
-	Model model(exploit);
-	model.add("hello", hello);
-	model.add("world", world);
+	Model model(exploit,"get");
+	model.add("hello","get", hello);
+	model.add("world","get", world);
 	HTTPResponse repo("hello helloss");
-	ASSERT_EQ(model.searchPath("hello")(repo), "Hello");
-	ASSERT_EQ(model.searchPath("world")(repo), "world");
-	ASSERT_EQ(model.searchPath("")(repo), "!");
+	ASSERT_EQ(model.searchPath("hello","get")(repo), "Hello");
+	ASSERT_EQ(model.searchPath("world","get")(repo), "world");
+	ASSERT_EQ(model.searchPath("","get")(repo), "!");
 }
 
 TEST(Model, addMultipleWords) {
-	Model model(exploit);
-	model.add("hello/world", hello);
-	model.add("world/word/there", world);
+	Model model(exploit,"put");
+	model.add("hello/world","get", hello);
+	model.add("world/word/there","post", world);
 	HTTPResponse repo("hello helloss");
-	ASSERT_EQ(model.searchPath("hello/world")(repo), "Hello");
-	ASSERT_EQ(model.searchPath("world/word/there")(repo), "world");
-	ASSERT_EQ(model.searchPath("")(repo), "!");
+	ASSERT_EQ(model.searchPath("hello/world","get")(repo), "Hello");
+	ASSERT_EQ(model.searchPath("world/word/there","post")(repo), "world");
+	ASSERT_EQ(model.searchPath("","put")(repo), "!");
 }
 TEST(Model, paths) {
-	Model model(NULL);
-	model.add("world/world", hello);
-	model.add("world/word/there", world);
-	model.add("world/word/theres", exploit);
+	Model model(NULL,"");
+	model.add("world/world","get", hello);
+	model.add("world/word/there","get", world);
+	model.add("world/word/theres","get", exploit);
     HTTPResponse repo("hello helloss");
-	ASSERT_EQ(model.searchPath("world/world")(repo), "Hello");
-	ASSERT_EQ(model.searchPath("world/word/there")(repo), "world");
-	ASSERT_EQ(model.searchPath("world/word/theres")(repo), "!");
+	ASSERT_EQ(model.searchPath("world/world","get")(repo), "Hello");
+	ASSERT_EQ(model.searchPath("world/word/there","get")(repo), "world");
+	ASSERT_EQ(model.searchPath("world/word/theres","get")(repo), "!");
 
 }

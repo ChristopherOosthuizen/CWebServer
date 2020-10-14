@@ -14,7 +14,7 @@ string writess(HTTPResponse reponse){
 }
 int main(){
     std::function<string(HTTPResponse)> str = writess;
-    auto* model= new Model(str);
+    auto* model= new Model(str,"get");
     Server serv(model);
     serv.run("8080");
     return 0; 

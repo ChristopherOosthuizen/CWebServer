@@ -4,6 +4,10 @@
 
 #include "gtest/gtest.h"
 #include <View/Template.h>
+
+#include <windows.h>
+#include <stdio.h>
+#include <tchar.h>
 TEST(Replace ,basic){
     auto* values = new map<string,string>();
     (*values)["hello"] = "there";
@@ -21,19 +25,19 @@ TEST(Replace,brokenTags){
     (*values)["hello"] = "there";
     (*values)["there"] = "Hello";
     (*values)["user"] = "chris";
-    auto*  result = new string("Hi, <%there   <%hello%>, <%great%> <%user%>");
+    auto*  result = new string("Hi, <%there%>   <%hello%>, <%great%> <%user%>");
     int start = Template::replace(result,values,4);
     start = Template::replace(result,values,0);
     Template::replace(result,values,0);
     Template::replace(result,values,0);
-    ASSERT_EQ("Hi, NULL, NULL chris",*result);
+    ASSERT_EQ("Hi, Hello   there, NULL chris",*result);
 }
 TEST(Replace,fallBack){
     auto* values = new map<string,string>();
     (*values)["hello"] = "there";
     (*values)["there"] = "Hello";
     (*values)["user"] = "chris";
-    auto*  result = new string("Hi, <%there:they>, <%great:right%> <%user%>");
+    auto*  result = new string("Hi, <%there:they%>, <%great:right%> <%user%>");
     int start = Template::Template::replace(result,values,4);
     start = Template::replace(result,values,0);
     Template::replace(result,values,0);
@@ -77,7 +81,7 @@ TEST(ReplaceAll,unfilledTags){
     (*values)["hello"] = "there";
     (*values)["there"] = "Hello";
     (*values)["user"] = "chris";
-    auto*  result = new string("Hi, <%there:they>, <%great%> <%user%>");
+    auto*  result = new string("Hi, <%there:they%>, <%great%> <%user%>");
     Template::replaceAll(result,values);
     ASSERT_EQ("Hi, Hello, NULL chris",*result);
 }
@@ -97,6 +101,7 @@ TEST(Copile,basic){
     auto* nap = new map<string,string>;
     (*nap)["there"] = "chris";
     (*nap)["hello"] = "mail@gmail.com";
+    SetCurrentDirectory("../../../CWebServer/tst/TemplateTests");
     string body = Template::compile("basic.html",nap);
-    ASSERT_EQ(body,"<html>\nchris\nmail@gmail.com\nlike\nNULL\n</html>");
+     ASSERT_EQ(body,"<html>\n\nmail@gmail.com\nchris\nlike\nNULL\n\n</html>\n");
 }

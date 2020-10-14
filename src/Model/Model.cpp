@@ -3,35 +3,35 @@ string forOfor(HTTPResponse response){
     HTTPRequest request("no page",404,"No page found");
     return request.toString();
 }
-Model::Model(function<string(HTTPResponse)> func) {
-	m_base = func;
+Model::Model(function<string(HTTPResponse)> func,const string& method) {
+	m_methods[method] = func;
 }
 
-function<string(HTTPResponse)> Model::searchPath(const string& str)
+function<string(HTTPResponse)> Model::searchPath(const string& str,const string& method)
 {
 	if (str.empty()) {
-	    return m_base;
+	    return m_methods[method] ;
     }
 
 
 	int current = str.find("/");
 	if (current == -1) {
 	    if(m_paths[str] != NULL)
-	        return m_paths[str]->m_base;
+	        return m_paths[str]-> m_methods[method];
 	    return forOfor;
 	}
 	else {
 		string key = str.substr(0, current);
-		return m_paths[key]->searchPath(str.substr(current+1,str.length()));
+		return m_paths[key]->searchPath(str.substr(current+1,str.length()),method);
 	}
 }
 
-void Model::add(const string& str, function<string(HTTPResponse)> func)
+void Model::add(const string& str,const string& method, function<string(HTTPResponse)> func)
 {
 	//if the key does not have a / assume that thats the final poition
 	int current = str.find("/");
 	if (current == -1) {
-		m_paths[str] = new Model(func);
+		m_paths[str] = new Model(func,method);
 	}
 	//if it does contain a / add a new node and add another model to the tree
 	else {
@@ -45,10 +45,10 @@ void Model::add(const string& str, function<string(HTTPResponse)> func)
 			mod = m_paths["%"] ;
 		}
 		else {
-			mod = new Model(forOfor);
+			mod = new Model(forOfor,method);
 			m_paths[key] = mod;
 		}
-		mod->add(str.substr(current+1,str.length()), func);
+		mod->add(str.substr(current+1,str.length()),method, func);
 	}
 
 }

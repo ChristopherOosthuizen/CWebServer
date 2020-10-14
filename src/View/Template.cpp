@@ -1,6 +1,6 @@
 #include <regex>
 #include "Template.h"
-
+#include <direct.h>
 //replaces the "<% syntax %> with the correct input from map starting and return the end
 int Template::replace(string* body,map<string,string>* values , int start) {
 
@@ -24,7 +24,8 @@ int Template::replace(string* body,map<string,string>* values , int start) {
     }
     if(fallBack.empty())
         fallBack ="NULL";
-    fallBack = fallBack.substr(1,fallBack.length());
+    else
+        fallBack = fallBack.substr(1,fallBack.length());
 
         //replaces tag with value
     string value = (*values)[key];
@@ -44,12 +45,16 @@ void Template::replaceAll( string* body,map<string,string>* values){
 }
 string *Template::readFile(const string &address) {
     string* result = new string;
-    string line;
-    ifstream fileStream(address);
-    if(fileStream.is_open()){
-        while(getline(fileStream,line)){
-            (*result) += line+'\n';
+    fstream myfile ;
+    myfile.open("basic.html",ios::in);
+    if (myfile.is_open())
+    {
+        string res;
+        while ( getline(myfile,res) )
+        {
+            *result+=res+'\n';
         }
+        myfile.close();
     }
     return result;
 }
