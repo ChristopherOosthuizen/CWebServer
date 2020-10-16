@@ -1,0 +1,16 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    function  please(){
+        console.log("hello")
+        $.ajax({
+            url: "/home",
+            type: "GET",
+            success: function (result){
+                console.log(result);
+            }
+        })
+    }
+</script>
+<button onclick="please()">hello</button>
+</html>

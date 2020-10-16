@@ -12,8 +12,15 @@ void handleConnection(int sock,Model* model) {
     }
     HTTPResponse response(inputs);
     string address = response.getAddress();
+    address = address.substr(1,address.length());
+    string method = response.getMethod();
+    cout<<method<<'\n';
+    cout<<address<<'\n';
+    auto func = model->searchPath(address,method);
       //checks to see if the function is valid becuase you cant assign a invalid function to a varible
-      ServSock::write(sock, model->searchPath(address.substr(1,address.length()),"get")(response));
+      if(func)
+        ServSock::write(sock,func(response));
+      closesocket(sock);
 }
 void Server::run(string address) {
     ServSock sock(8080);

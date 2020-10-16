@@ -1,6 +1,5 @@
 #pragma once
 #include <thread>
-#include <HTTP/HTTPResponse.h>
 #include <Model/Model.h>
 #include <Sockets/ServSock.h>
 class Server {

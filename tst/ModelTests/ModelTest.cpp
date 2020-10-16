@@ -31,3 +31,15 @@ TEST(Model, paths) {
 	ASSERT_EQ(model.searchPath("world/word/theres","get")(repo), "!");
 
 }
+TEST(Model, nulls) {
+    HTTPRequest request("no page",404,"No page found");
+    Model model(NULL,"");
+    model.add("world/world","get", hello);
+    model.add("world/word/there","get", world);
+    model.add("world/word/theres","get", exploit);
+    HTTPResponse repo("hello helloss");
+    ASSERT_EQ(model.searchPath("world/worl","get")(repo), request.toString());
+    ASSERT_EQ(model.searchPath("world/word/there","put")(repo), request.toString());
+    ASSERT_EQ(model.searchPath("world/word/theres/hello","get")(repo), request.toString());
+
+}

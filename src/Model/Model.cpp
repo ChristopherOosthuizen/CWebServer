@@ -16,7 +16,7 @@ function<string(HTTPResponse)> Model::searchPath(const string& str,const string&
 
 	int current = str.find("/");
 	if (current == -1) {
-	    if(m_paths[str] != NULL)
+	    if(m_paths[str] != NULL && m_paths[str]->m_methods[method] !=NULL)
 	        return m_paths[str]-> m_methods[method];
 	    return forOfor;
 	}

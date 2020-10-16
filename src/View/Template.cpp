@@ -46,7 +46,7 @@ void Template::replaceAll( string* body,map<string,string>* values){
 string *Template::readFile(const string &address) {
     string* result = new string;
     fstream myfile ;
-    myfile.open("basic.html",ios::in);
+    myfile.open(address,ios::in);
     if (myfile.is_open())
     {
         string res;

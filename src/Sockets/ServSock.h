@@ -1,7 +1,7 @@
 //
 // Created by Chris on 9/27/2020.
 //
-
+#pragma once
 #ifndef FAKESQL_SERVSOCK_H
 #define FAKESQL_SERVSOCK_H
 
