@@ -2,7 +2,7 @@
 Server::Server(Model* model) {
 	m_mod = model;
 }
-void handleConnection(int sock,Model* model) {
+void Server::handleConnection(int sock,Model* model) {
     string inputs;
     try {
         inputs = ServSock::readAll(sock);

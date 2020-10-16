@@ -7,4 +7,5 @@ Model* m_mod;
 public:
 	Server(Model* model);
     void run(string address);
+    static void handleConnection(int sock,Model* model);
 };
