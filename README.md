@@ -24,5 +24,5 @@ this code starts the web server and will return "home" at home
 ## Contributing
 All pull requests are welcome just please dont break the tests that are already put down
 
-#License
-[MIT][MIT](https://choosealicense.com/licenses/mit/)
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
