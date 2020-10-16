@@ -18,6 +18,7 @@ string base(HTTPResponse response){
 }
 string home(HTTPResponse response){
     HTTPRequest request("OK",200,"hello");
+    cout<< request.toString();
     return request.toString();
 }
 #endif //WEBSERVER_VIEWS_H
