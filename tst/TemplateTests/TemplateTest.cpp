@@ -4,10 +4,8 @@
 
 #include "gtest/gtest.h"
 #include <View/Template.h>
-
-#include <windows.h>
+#include <unistd.h>
 #include <stdio.h>
-#include <tchar.h>
 TEST(Replace ,basic){
     auto* values = new map<string,string>();
     (*values)["hello"] = "there";
@@ -101,7 +99,7 @@ TEST(Copile,basic){
     auto* nap = new map<string,string>;
     (*nap)["there"] = "chris";
     (*nap)["hello"] = "mail@gmail.com";
-    SetCurrentDirectory("../../../CWebServer/tst/TemplateTests");
+    chdir("../../../CWebServer/tst/TemplateTests");
     string body = Template::compile("basic.html",nap);
      ASSERT_EQ(body,"<html>\n\nmail@gmail.com\nchris\nlike\nNULL\n\n</html>\n");
 }

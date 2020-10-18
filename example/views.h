@@ -10,8 +10,7 @@
 #include <View/Template.h>
 using namespace std;
 string base(HTTPResponse response){
-    SetCurrentDirectory("../../../CWebServer/example/resources");
-    auto* data = Template::readFile("home.html");
+    auto* data = Template::readFile("resources/home.html");
     HTTPRequest request("OK",200,*data);
     delete data;
     return request.toString();

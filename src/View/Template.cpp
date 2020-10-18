@@ -1,6 +1,5 @@
 #include <regex>
 #include "Template.h"
-#include <direct.h>
 //replaces the "<% syntax %> with the correct input from map starting and return the end
 int Template::replace(string* body,map<string,string>* values , int start) {
 
@@ -45,8 +44,7 @@ void Template::replaceAll( string* body,map<string,string>* values){
 }
 string *Template::readFile(const string &address) {
     string* result = new string;
-    fstream myfile ;
-    myfile.open(address,ios::in);
+    ifstream myfile(address) ;
     if (myfile.is_open())
     {
         string res;

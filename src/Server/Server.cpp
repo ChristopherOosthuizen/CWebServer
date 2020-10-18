@@ -20,7 +20,6 @@ void Server::handleConnection(int sock,Model* model) {
       //checks to see if the function is valid becuase you cant assign a invalid function to a varible
       if(func)
         ServSock::write(sock,func(response));
-      closesocket(sock);
 }
 void Server::run(string address) {
     ServSock sock(8080);
